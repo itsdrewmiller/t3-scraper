@@ -9,6 +9,13 @@ function crawlYear(year) {
 	var url = 'https://triticeaetoolbox.org/barley/view_search_yr2.php?table=experiments&year=' + year;
 	request(url, function (err, response, body) {
 		var $ = cheerio.load(body);
-		console.log($('#main table tr').html());
+		$('#main a').each(function(i, elem) {
+		  var href = $(this).attr('href');
+		  var url = 'https://triticeaetoolbox.org/barley/' + href;
+		  request(url, function(err, response, body) {
+		  	console.log(body);
+		  });
+		});
+
 	});
 }
