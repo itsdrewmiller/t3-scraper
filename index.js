@@ -17,6 +17,30 @@ function crawlYear(year) {
 		  	var filename = href;
 		  	filename = filename.replace('display_genotype.php?trial_code=', '') + '.html';
 		  	fs.writeFile('./' + filename, body);
+
+		  	while (match = /onclick="javascript:output_file.'([^']+)');"/.exec(body)) {
+		  		var num = match[1];
+		  		var url_file = 'https://triticeaetoolbox.org/barley/' + num;
+		  		request(url_file, function(err, response, body_file) {
+		  			fs.writeFile('./file_' + num, body);
+		  		});
+		  	}
+
+		  	while (match = /onclick="javascript:output_file2.'([^']+)');"/.exec(body)) {
+		  		var num = match[1];		  		
+		  		var url_file2 = 'https://triticeaetoolbox.org/barley/download_phenotype.php?function=downloadMean&pi=' + num;
+		  		request(url_file2, function(err, response, body_file2) {
+		  			fs.writeFile('./file2_' + num, body);
+		  		});
+		  	}
+
+		  	while (match = /onclick="javascript:output_file_plot.'([^']+)');"/.exec(body)) {
+		  		var num = match[1];		  		
+		  		var url_file2 = 'https://triticeaetoolbox.org/barley/download_phenotype.php?function=downloadPlot&pi=' + num;
+		  		request(url_file2, function(err, response, body_file2) {
+		  			fs.writeFile('./plot_' + num, body);
+		  		});
+		  	}
 		  });
 		});
 
