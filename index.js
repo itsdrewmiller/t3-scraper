@@ -16,7 +16,6 @@ function crawlCrop(crop) {
 	_.forEach(years, crawlYearGen(crop));	
 }
 
-
 // database is organized by year
 // each year gives you a table of links, each link goes to a trial
 // each trial is downloaded as an html page (in crawlTrial)
@@ -37,7 +36,6 @@ function crawlYearGen(crop) {
 		});
 	};
 }
-
 
 function crawlTrial(trialCode, crop) {
   var url = 'https://triticeaetoolbox.org/' + crop + '/display_phenotype.php?trial_code=' + trialCode;
