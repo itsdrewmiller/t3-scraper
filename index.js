@@ -13,7 +13,8 @@ function crawlYear(year) {
 		  var href = $(this).attr('href');
 		  var url = 'https://triticeaetoolbox.org/barley/' + href;
 		  request(url, function(err, response, body) {
-		  	console.log(body);
+		  	var filename = href.replace('display_genotype.php?trial_code=', '') + '.html';
+		  	fs.writeFile('./' + filename, body);
 		  });
 		});
 
