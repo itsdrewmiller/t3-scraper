@@ -1,11 +1,14 @@
 var request = require('request');
- var fs = require('fs');
+var fs = require('fs');
+var _ = require('lodash');
+var cheerio = require('cheerio');
 
-request('https://triticeaetoolbox.org/barley/display_phenotype.php?trial_code=FHB_2005_Crookston',
- function (err, response, body) {
-  if (err) {
-  	console.log('error', err);
-  }
+crawlYear(2000);
 
-  fs.writeFile('./FHB_2005_Crookston.html', body);
-});
+function crawlYear(year) {
+	var url = 'https://triticeaetoolbox.org/barley/view_search_yr2.php?table=experiments&year=' + year;
+	request(url, function (err, response, body) {
+		var $ = cheerio.load(body);
+		console.log($('#main table tr').html());
+	});
+}
