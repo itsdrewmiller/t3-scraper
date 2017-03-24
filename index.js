@@ -31,7 +31,7 @@ function crawlYearGen(crop) {
 			var $ = cheerio.load(body);
 			$('#main a').each(function(i, elem) {
 			  var href = $(this).attr('href');
-			  var trialCode = href.replace('display_genotype.php?trial_code=', '');
+			  var trialCode = href.replace('display_phenotype.php?trial_code=', '');
 			  crawlTrial(trialCode, crop);
 			});
 		});
@@ -40,7 +40,7 @@ function crawlYearGen(crop) {
 
 
 function crawlTrial(trialCode, crop) {
-  var url = 'https://triticeaetoolbox.org/' + crop + '/display_genotype.php?trial_code=' + trialCode;
+  var url = 'https://triticeaetoolbox.org/' + crop + '/display_phenotype.php?trial_code=' + trialCode;
   request(url, function(err, response, body) {
   	var filename = trialCode + '.html';
   	fs.writeFile('./' + filename, body);
